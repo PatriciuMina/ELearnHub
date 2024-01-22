@@ -1,0 +1,64 @@
+{
+  "application.js": "/packs/js/application-579bf16b414bbb42271a.js",
+  "application.js.map": "/packs/js/application-579bf16b414bbb42271a.js.map",
+  "beforeleave.js": "/packs/js/beforeleave-a6aa195392365a7f9c49.js",
+  "beforeleave.js.map": "/packs/js/beforeleave-a6aa195392365a7f9c49.js.map",
+  "entrypoints": {
+    "application": {
+      "js": [
+        "/packs/js/application-579bf16b414bbb42271a.js"
+      ],
+      "js.map": [
+        "/packs/js/application-579bf16b414bbb42271a.js.map"
+      ]
+    },
+    "beforeleave": {
+      "js": [
+        "/packs/js/beforeleave-a6aa195392365a7f9c49.js"
+      ],
+      "js.map": [
+        "/packs/js/beforeleave-a6aa195392365a7f9c49.js.map"
+      ]
+    },
+    "image_transition": {
+      "js": [
+        "/packs/js/image_transition-1965dfc9a7e1066ff313.js"
+      ],
+      "js.map": [
+        "/packs/js/image_transition-1965dfc9a7e1066ff313.js.map"
+      ]
+    },
+    "paypal": {
+      "js": [
+        "/packs/js/paypal-4316b37a566024100e6c.js"
+      ],
+      "js.map": [
+        "/packs/js/paypal-4316b37a566024100e6c.js.map"
+      ]
+    },
+    "submit_message_press_enter": {
+      "js": [
+        "/packs/js/submit_message_press_enter-2635a605e186643e140c.js"
+      ],
+      "js.map": [
+        "/packs/js/submit_message_press_enter-2635a605e186643e140c.js.map"
+      ]
+    },
+    "up": {
+      "js": [
+        "/packs/js/up-709c458c6f38c2ddfdab.js"
+      ],
+      "js.map": [
+        "/packs/js/up-709c458c6f38c2ddfdab.js.map"
+      ]
+    }
+  },
+  "image_transition.js": "/packs/js/image_transition-1965dfc9a7e1066ff313.js",
+  "image_transition.js.map": "/packs/js/image_transition-1965dfc9a7e1066ff313.js.map",
+  "paypal.js": "/packs/js/paypal-4316b37a566024100e6c.js",
+  "paypal.js.map": "/packs/js/paypal-4316b37a566024100e6c.js.map",
+  "submit_message_press_enter.js": "/packs/js/submit_message_press_enter-2635a605e186643e140c.js",
+  "submit_message_press_enter.js.map": "/packs/js/submit_message_press_enter-2635a605e186643e140c.js.map",
+  "up.js": "/packs/js/up-709c458c6f38c2ddfdab.js",
+  "up.js.map": "/packs/js/up-709c458c6f38c2ddfdab.js.map"
+}

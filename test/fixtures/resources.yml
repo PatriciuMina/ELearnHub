@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  resourceable_id: 1
+  resourceable_type: MyString
+  name: MyString
+  url: MyString
+
+two:
+  resourceable_id: 1
+  resourceable_type: MyString
+  name: MyString
+  url: MyString

@@ -1,0 +1,24 @@
+<a class="btn btn-primary btn-lg" <%= link_to 'Enroll', new_enrollment_path %></a>
+<div>
+  <table class="table table-striped table-bordered table-hover">
+    <thead class="thead-dark">
+    <tr>
+      <th>#</th>
+      <th>user_id</th>
+      <th>course_id</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <% @enrollments = Enrollment.all %>
+    <% @enrollments.each do |e| %>
+      <tr>
+        <th><%= e.id %></th>
+        <td><%= e.user_id %></td>
+        <td><%= e.course_id %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+<a class="btn btn-primary" <%= link_to "Back", root_path%></a>

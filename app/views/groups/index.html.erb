@@ -1,0 +1,99 @@
+<div id="wrapper">
+  <% if current_user.role == "admin" or current_user.role == "teacher" %>
+    <%= render 'layouts/leftBar' %>
+  <% else %>
+    <%= render 'layouts/leftBarStud' %>
+  <% end %>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+
+      <%= render 'layouts/topBar' %>
+      <h1 class="h3 mb-0 text-gray-800 text-center">Groups</h1>
+      <p></p>
+
+      <% @groups.each_slice(3) do |index| %>
+        <div class="container" style="max-width: 1440px">
+          <div class="card-deck">
+
+            <% unless index[0].nil? %>
+              <div class="card" style="max-width: 448px; border-radius: 25px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                <img class="card-img-top" src="/assets/course_card.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <% if current_user.role == "admin" or current_user.role == "teacher" %>
+                    <h5 class="card-title"><%= link_to index[0].name, index[0] %></h5>
+                  <% else %>
+                    <h5 class="card-title"><%= index[0].name %></h5>
+                  <% end %>
+                  <p class="card-text"><%= index[0].description.truncate(100) %></p>
+                  <p class="card-text">
+                    <% if current_user.role == "admin" or current_user.role == "teacher" %>
+                      <%= link_to 'Edit', edit_group_path(index[0]) %>
+                    <% end %>
+                    <% if index[0].price %>
+                      <%= number_to_currency(index[0].price / 100) %>
+                    <% end %>
+                  </p>
+                </div>
+              </div>
+            <% end %>
+
+            <% unless index[1].nil? %>
+              <div class="card" style="max-width: 448px; border-radius: 25px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                <img class="card-img-top" src="/assets/course_card.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <% if current_user.role == "admin" or current_user.role == "teacher" %>
+                    <h5 class="card-title"><%= link_to index[1].name, index[1] %></h5>
+                  <% else %>
+                    <h5 class="card-title"><%= index[1].name %></h5>
+                  <% end %>
+                  <p class="card-text"><%= index[1].description.truncate(100) %>.</p>
+                  <p class="card-text">
+                    <% if current_user.role == "admin" or current_user.role == "teacher" %>
+                      <%= link_to 'Edit', edit_group_path(index[1]) %>
+                    <% end %>
+                    <% if index[1].price %>
+                      <%= number_to_currency(index[1].price / 100) %>
+                    <% end %>
+                  </p>
+                </div>
+              </div>
+            <% end %>
+
+            <% unless index[2].nil? %>
+              <div class="card" style="max-width: 448px; border-radius: 25px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                <img class="card-img-top" src="/assets/course_card.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <% if current_user.role == "admin" or current_user.role == "teacher" %>
+                    <h5 class="card-title"><%= link_to index[2].name, index[2] %></h5>
+                  <% else %>
+                    <h5 class="card-title"><%= index[2].name %></h5>
+                  <% end %>
+                  <p class="card-text"><%= index[2].description.truncate(100) %></p>
+                  <p class="card-text">
+                    <% if current_user.role == "admin" or current_user.role == "teacher" %>
+                      <%= link_to 'Edit', edit_group_path(index[2]) %>
+                    <% end %>
+                    <% if index[2].price %>
+                      <%= number_to_currency(index[2].price / 100) %>
+                    <% end %>
+                  </p>
+                </div>
+              </div>
+            <% end %>
+
+          </div>
+        </div>
+        <p></p>
+      <% end %>
+
+      <div class="container">
+        <div class="text-center my-4">
+          <%= will_paginate @courses, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+        </div>
+      </div>
+      l
+
+    </div>
+  </div>
+</div>

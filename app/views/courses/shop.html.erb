@@ -1,0 +1,202 @@
+<div id="wrapper">
+  <% if current_user.role == "admin" or current_user.role == "teacher" %>
+    <%= render 'layouts/leftBar' %>
+  <% else %>
+    <%= render 'layouts/leftBarStud' %>
+  <% end %>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+
+      <%= render 'layouts/topBar' %>
+      <h1 class="h3 mb-0 text-gray-800 text-center">Shop</h1>
+      <p></p>
+
+      <h3 class="h3 mb-0 text-gray-800 text-center">Courses Section<br></h3>
+      <br>
+      <% @courses.each_slice(3) do |index| %>
+        <div class="container" style="max-width: 1440px">
+          <div class="card-deck">
+
+            <% unless index[0].nil? %>
+              <div class="card" style="max-width: 448px; border-radius: 25px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                <img class="card-img-top" src="/assets/course_card.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title"><%= index[0].name %></h5>
+                  <p class="card-text"><%= index[0].description.truncate(100) %></p>
+                  <p class="card-text">
+                    <% if index[0].price %>
+                      Price <%= number_to_currency(index[0].price / 100) %>
+                    <% end %>
+                    <% @bill = Bill.where(name: current_user.name, product_id: index[0].stripe_product_id).first %>
+                    <% if index[0].price %>
+                      <% if @bill.nil? %>
+                        <%= button_to "Buy Course!", checkout_create_path, params: { stripe_product_id: index[0].stripe_product_id }, remote: true, class: "btn btn-success rounded-4", style: "width: 200px" %>
+                        <br>
+                        <%= link_to "Buy with Paypal!", show_pay_pal_order_checkout_index_path(course_id: index[0].id), remote: true, class: "btn btn-primary rounded-4", style: "width: 200px" %>
+                      <% else %>
+                        <br>
+                        <h5><strong>Owned</strong></h5>
+                      <% end %>
+                    <% end %>
+                    </p>
+                    </div>
+              </div>
+            <% end %>
+
+            <% unless index[1].nil? %>
+              <div class="card" style="max-width: 448px; border-radius: 25px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                <img class="card-img-top" src="/assets/course_card.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title"><%= index[1].name %></h5>
+                  <p class="card-text"><%= index[1].description.truncate(100) %>.</p>
+                  <p class="card-text">
+                    <% if index[1].price %>
+                      Price <%= number_to_currency(index[1].price / 100) %>
+                    <% end %>
+                    <% @bill = Bill.where(name: current_user.name, product_id: index[1].stripe_product_id).first %>
+                    <% if index[1].price %>
+                      <% if @bill.nil? %>
+                        <%= button_to "Buy Course!", checkout_create_path, params: { stripe_product_id: index[1].stripe_product_id }, remote: true, class: "btn btn-success rounded-4", style: "width: 200px" %>
+                        <br>
+                        <%= link_to "Buy with Paypal!", show_pay_pal_order_checkout_index_path(course_id: index[1].id), remote: true, class: "btn btn-primary rounded-4", style: "width: 200px" %>
+                      <% else %>
+                        <br>
+                        <h5><strong>Owned</strong></h5>
+                      <% end %>
+                    <% end %>
+                    </p>
+                    </div>
+              </div>
+            <% end %>
+
+            <% unless index[2].nil? %>
+              <div class="card" style="max-width: 448px; border-radius: 25px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                <img class="card-img-top" src="/assets/course_card.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title"><%= index[2].name %></h5>
+                  <p class="card-text"><%= index[2].description.truncate(100) %></p>
+                  <p class="card-text">
+                    <% if index[2].price %>
+                      Price <%= number_to_currency(index[2].price / 100) %>
+                    <% end %>
+                    <% @bill = Bill.where(name: current_user.name, product_id: index[2].stripe_product_id).first %>
+                    <% if index[2].price %>
+                      <% if @bill.nil? %>
+                        <%= button_to "Buy Course!", checkout_create_path, params: { stripe_product_id: index[2].stripe_product_id }, remote: true, class: "btn btn-success rounded-4", style: "width: 200px" %>
+                        <br>
+                        <%= link_to "Buy with Paypal!", show_pay_pal_order_checkout_index_path(course_id: index[2].id), remote: true, class: "btn btn-primary rounded-4", style: "width: 200px" %>
+                      <% else %>
+                        <br>
+                        <h5><strong>Owned</strong></h5>
+                      <% end %>
+                    <% end %>
+                    </p>
+                    </div>
+              </div>
+            <% end %>
+
+          </div>
+        </div>
+        <p></p>
+      <% end %>
+      <p></p>
+
+      <h3 class="h3 mb-0 text-gray-800 text-center">Groups Section<br></h3>
+      <br>
+      <% @groups.each_slice(3) do |index| %>
+        <div class="container" style="max-width: 1440px">
+          <div class="card-deck">
+
+            <% unless index[0].nil? %>
+              <div class="card" style="max-width: 448px; border-radius: 25px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                <img class="card-img-top" src="/assets/course_card.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title"><%= index[0].name %></h5>
+                  <p class="card-text"><%= index[0].description.truncate(100) %></p>
+                  <p class="card-text">
+                    <% if index[0].price %>
+                      Price <%= number_to_currency(index[0].price / 100) %>
+                    <% end %>
+                    <% @bill = Bill.where(name: current_user.name, product_id: index[0].stripe_product_id).first %>
+                    <% if index[0].price %>
+                      <% if @bill.nil? %>
+                        <%= button_to "Buy Group!", checkout_create_path, params: { stripe_product_id: index[0].stripe_product_id }, remote: true, class: "btn btn-success rounded-4", style: "width: 200px" %>
+                        <br>
+                        <%= link_to "Buy with Paypal!", show_pay_pal_order_checkout_index_path(group_id: index[0].id), remote: true, class: "btn btn-primary rounded-4", style: "width: 200px" %>
+                      <% else %>
+                        <br>
+                        <h5><strong>Owned</strong></h5>
+                      <% end %>
+                    <% end %>
+                    </p>
+                    </div>
+              </div>
+            <% end %>
+
+            <% unless index[1].nil? %>
+              <div class="card" style="max-width: 448px; border-radius: 25px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                <img class="card-img-top" src="/assets/course_card.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title"><%= index[1].name %></h5>
+                  <p class="card-text"><%= index[1].description.truncate(100) %>.</p>
+                  <p class="card-text">
+                    <% if index[1].price %>
+                      Price <%= number_to_currency(index[1].price / 100) %>
+                    <% end %>
+                    <% @bill = Bill.where(name: current_user.name, product_id: index[1].stripe_product_id).first %>
+                    <% if index[1].price %>
+                      <% if @bill.nil? %>
+                        <%= button_to "Buy Group!", checkout_create_path, params: { stripe_product_id: index[1].stripe_product_id }, remote: true, class: "btn btn-success rounded-4", style: "width: 200px" %>
+                        <br>
+                        <%= link_to "Buy with Paypal!", show_pay_pal_order_checkout_index_path(group_id: index[1].id), remote: true, class: "btn btn-primary rounded-4", style: "width: 200px" %>
+                      <% else %>
+                        <br>
+                        <h5><strong>Owned</strong></h5>
+                      <% end %>
+                    <% end %>
+                    </p>
+                    </div>
+              </div>
+            <% end %>
+
+            <% unless index[2].nil? %>
+              <div class="card" style="max-width: 448px; border-radius: 25px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                <img class="card-img-top" src="/assets/course_card.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title"><%= index[2].name %></h5>
+                  <p class="card-text"><%= index[2].description.truncate(100) %></p>
+                  <p class="card-text">
+                    <% if index[2].price %>
+                      Price <%= number_to_currency(index[2].price / 100) %>
+                    <% end %>
+                    <% @bill = Bill.where(name: current_user.name, product_id: index[2].stripe_product_id).first %>
+                    <% if index[2].price %>
+                      <% if @bill.nil? %>
+                        <%= button_to "Buy Group!", checkout_create_path, params: { stripe_product_id: index[2].stripe_product_id }, remote: true, class: "btn btn-success rounded-4", style: "width: 200px" %>
+                        <br>
+                        <%= link_to "Buy with Paypal!", show_pay_pal_order_checkout_index_path(group_id: index[2].id), remote: true, class: "btn btn-primary rounded-4", style: "width: 200px" %>
+                      <% else %>
+                        <br>
+                        <h5><strong>Owned</strong></h5>
+                      <% end %>
+                    <% end %>
+                    </p>
+                    </div>
+              </div>
+            <% end %>
+
+          </div>
+        </div>
+        <p></p>
+      <% end %>
+
+      <div class="container">
+        <div class="text-center my-4">
+          <%= will_paginate @groups, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

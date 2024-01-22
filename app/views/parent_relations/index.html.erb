@@ -1,0 +1,44 @@
+<div id="wrapper">
+  <%= render 'layouts/leftBar' %>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+
+      <%= render 'layouts/topBar' %>
+
+
+      <div class="container-fluid" style="padding-bottom: 20px">
+        <div>
+          <table class="table table-striped table-bordered table-hover">
+            <thead class="thead-dark">
+            <tr>
+              <th>#</th>
+              <th>parent_id</th>
+              <th>child_id</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+            <% @parent_relations.each do |parent_relation| %>
+              <tr>
+                <th><%= parent_relation.id %></th>
+                <td><%= parent_relation.parent_id %></td>
+                <td><%= parent_relation.child_id %></td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+        <a class="btn btn-primary" <%= link_to "Create new relation", new_parent_relation_path %>
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

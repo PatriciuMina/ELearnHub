@@ -1,0 +1,126 @@
+<div id="wrapper">
+  <%= render 'layouts/leftBar' %>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      <%= render 'layouts/topBar' %>
+
+      <% if current_user.role != 'admin' %>
+        <h1>You are not allowed here, go back</h1>
+        <a class="btn btn-primary" <%= link_to "Back", root_path %></a>
+      <% else %>
+
+        <body class="bg-gradient-primary">
+        <div class="containter justify-content-center">
+          <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-8">
+
+              <%= form_tag report_users_users_admin_index_path(format: :csv), method: :post do %>
+
+                <div class="text-center ">
+                  <h1 class="h4 text-gray-900 mb-4">Create a Report for users!</h1>
+                </div>
+                <div class="container">
+
+                  <% User.column_names.each do |column_name| %>
+                    <div class="row ">
+                      <div class="col ">
+                        <%= check_box_tag "selected_columns[]", column_name %>
+                        <%= label_tag column_name, column_name.titleize %>
+                      </div>
+
+                      <% if User.column_for_attribute(column_name).type == :string %>
+                        <div class="col ">
+                          <%= label_tag("Starts with", nil, class: "filter-text-field", style: "display:none;" ) %>
+                          <%= text_field_tag "filter_first[#{column_name}]", "", class: "filter-text-field", style: "display:none;" %>
+                        </div>
+                        <div class="col ">
+                          <%= label_tag("Contains", nil, class: "filter-text-field", style: "display:none;" ) %>
+                          <%= text_field_tag "filter_second[#{column_name}]", "", class: "filter-text-field", style: "display:none;" %>
+                        </div>
+                        <div class="col ">
+                          <%= label_tag("Ends with", nil, class: "filter-text-field", style: "display:none;" ) %>
+                          <%= text_field_tag "filter_third[#{column_name}]", "", class: "filter-text-field", style: "display:none;" %>
+                        </div>
+                      <% end %>
+                      <% if User.column_for_attribute(column_name).type == :integer %>
+                        <div class="col ">
+                          <%= label_tag("Lower than", nil, class: "filter-text-field", style: "display:none;" ) %>
+                          <%= text_field_tag "filter_first[#{column_name}]", "", class: "filter-text-field", style: "display:none;" %>
+                        </div>
+                        <div class="col ">
+                          <%= label_tag("Equal with", nil, class: "filter-text-field", style: "display:none;" ) %>
+                          <%= text_field_tag "filter_second[#{column_name}]", "", class: "filter-text-field", style: "display:none;" %>
+                        </div>
+                        <div class="col ">
+                          <%= label_tag("Greater than", nil, class: "filter-text-field", style: "display:none;" ) %>
+                          <%= text_field_tag "filter_third[#{column_name}]", "", class: "filter-text-field", style: "display:none;" %>
+                        </div>
+                      <% end %>
+                      <% if User.column_for_attribute(column_name).type == :datetime %>
+                        <div class="col ">
+                          <%= label_tag("Start Date", nil, class: "filter-text-field", style: "display:none;" ) %>
+                          <%= datetime_field_tag "filter_first[#{column_name}]", "", class: "filter-text-field", style: "display:none;" %>
+                        </div>
+                        <div class="col ">
+                          <%= label_tag("Exact Date", nil, class: "filter-text-field", style: "display:none;" ) %>
+                          <%= datetime_field_tag "filter_second[#{column_name}]", "", class: "filter-text-field", style: "display:none;" %>
+                        </div>
+                        <div class="col ">
+                          <%= label_tag("End Date", nil, class: "filter-text-field", style: "display:none;" ) %>
+                          <%= datetime_field_tag "filter_third[#{column_name}]", "", class: "filter-text-field", style: "display:none;" %>
+                        </div>
+                      <% end %>
+
+
+                    </div>
+                  <% end %>
+                  <%= label_tag :description, 'Description' %>
+                  <%= text_field_tag :description %>
+                  <br>
+                  <%= submit_tag "Report" %>
+                </div>
+
+              <% end %>
+      <% end %>
+      </div>
+      </div>
+      </div>
+      <script>
+          document.querySelectorAll('input[type="checkbox"]').forEach(function (checkbox) {
+              checkbox.addEventListener('change', function (event) {
+                  var column_name = event.target.value;
+                  var checkbox_col = event.target.parentElement;
+                  var text_field_cols = event.target.closest('.row').querySelectorAll('.col:not(:first-child)');
+                  var text_fields = [];
+
+                  text_field_cols.forEach(function (text_field_col) {
+                      text_fields.push(text_field_col.querySelectorAll('.filter-text-field[name="filter_first[' + column_name + ']"], .filter-text-field[name="filter_second[' + column_name + ']"], .filter-text-field[name="filter_third[' + column_name + ']"]'));
+                      text_field_col.querySelectorAll('label').forEach(function(label) {
+                          label.style.display = "none"; // hide the labels initially
+                      });
+                  });
+
+                  if (event.target.checked) {
+                      text_fields.forEach(function (text_fields) {
+                          text_fields.forEach(function (text_field) {
+                              text_field.style.display = "inline-block";
+                              text_field.parentElement.querySelector('label').style.display = "inline-block";
+                          });
+                      });
+                  } else {
+                      text_fields.forEach(function (text_fields) {
+                          text_fields.forEach(function (text_field) {
+                              text_field.style.display = "none";
+                              text_field.parentElement.querySelector('label').style.display = "none";
+                          });
+                      });
+                  }
+              });
+          });
+      </script>
+      </body>
+    </div>
+  </div>
+</div>
+

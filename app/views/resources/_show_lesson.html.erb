@@ -1,0 +1,34 @@
+<ul class="list-group">
+          <div class="text-left ">
+            <h1 class="h4 text-gray-900 mb-4">Resources</h1>
+          </div>
+
+          <% @resource.each do |attachment| %>
+            <% if attachment.file.attached? %>
+              <% if attachment.file.image? %>
+                <li class="list-group-item">
+                  <%= image_tag attachment.file, width: "200px" %>
+                </li>
+              <% elsif attachment.file.audio? %>
+                <li class="list-group-item">
+                  <audio controls>
+                    <source src="<%= rails_blob_url(attachment.file) %>" type="<%= attachment.file.content_type %>"/>
+                  </audio>
+                </li>
+              <%elsif attachment.file.video?%>
+                <li class="list-group-item">
+                  <video controls width="480">
+                    <source src="<%= rails_blob_url(attachment.file) %>" type="<%= attachment.file.content_type %>"/>
+                  </video>
+                </li>
+              <% else %>
+                <li class="list-group-item">
+                  <%= link_to attachment.file.filename, rails_blob_path(attachment.file, dispotion: "attachement") %>
+                </li>
+              <% end %>
+            <% end %>
+          <% end %>
+</ul>
+
+
+<br/>

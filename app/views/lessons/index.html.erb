@@ -1,0 +1,38 @@
+<% if current_user.role == "admin" or current_user.role== "teacher" %>
+  <a class="btn btn-primary btn-lg" <%= link_to 'Create lesson', new_lesson_path %></a>
+<%end %>
+<p></p>
+
+<div>
+  <table class="table table-striped table-bordered table-hover">
+    <thead class="thead-dark">
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Text</th>
+      <th>course_id</th>
+      <th>school_id</th>
+      <th>teacher_id</th>
+      <th>updated_by</th>
+      <th>Edit</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @lessons = Lesson.all %>
+    <% @lessons.each do |l| %>
+      <tr>
+        <th><%= l.id %></th>
+        <td><%= link_to l.name, l %></td>
+        <td><%= l.text %></td>
+        <td><%= l.course_id %></td>
+        <td><%= l.school_id %></td>
+        <td><%= l.teacher_id %></td>
+        <th><%= l.updated_by %></th>
+        <th><%= link_to 'Edit', edit_lesson_path(l) %></th>
+      </tr>
+
+    <% end %>
+    </tbody>
+  </table>
+</div>
+<a class="btn btn-primary" <%= link_to "Back", root_path%></a>

@@ -1,0 +1,20 @@
+
+            <% if @assignment.category == "quiz" %>
+              <div class="card-body">
+                <% @question.each do |question| %>
+                  <div class="card-header">
+                    <h1><%= question.text %></h1>
+                  </div>
+                  <% question.user_answears.each do |user_answear| %>
+                    <p>
+                      <% if @answear.user_id == user_answear.user_id %>
+                        <%= user_answear.option.text %>
+                      <%end %>
+                    </p>
+                  <%end %>
+
+                <%end %>
+            <%end %>
+              </div>
+            <%= link_to "Back to Quizz", :back, class: "btn btn-secondary" %>
+            <%= link_to "Save Answears", "/course/"+@course.id.to_s+"/assignments" %>

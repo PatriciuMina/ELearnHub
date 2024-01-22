@@ -1,0 +1,61 @@
+<div id="wrapper">
+  <%= render 'layouts/leftBar' %>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+
+      <%= render 'layouts/topBar' %>
+
+      <body class="bg-gradient-primary">
+      <div class="containter justify-content-center">
+        <div class="card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-8">
+            <%= form_for @option,  method: :post, local: true do |f| %>
+              <div class="row justify-content-center ">
+                <div class="col-lg-7 ">
+                  <div class="p-5">
+                    <div class="text-center ">
+                      <h1 class="h4 text-gray-900 mb-4">Create a new Option!</h1>
+                    </div>
+                    <% if @question.question_type == "free_answear" %>
+                      <div style="display: none;">
+                        <%= f.text_field :text, value: "Write the answear" %>
+                      </div>
+                      <div style="display: none;">
+                        <%= f.text_field :is_correct, value: false %>
+                      </div>
+                      <div style="display: none;">
+                        <%= f.text_field :question_id, value: @question.id %>
+                      </div>
+                    <%else %>
+                      <div class="form-group">
+                        <%= f.label :text %><br />
+                        <%= f.text_field :text, autofocus: true, class:"form-control", autocomplete: "text" %>
+                      </div>
+
+                      <div class="form-group">
+                        <%= f.label :is_correct %><br />
+                        <%= f.check_box :is_correct, {}, "true", "false"%>
+                      </div>
+
+                      <div style="display: none;">
+                        <%= f.text_field :question_id, value: @question.id %>
+                      </div>
+                    <%end %>
+
+
+                    <div class="actions">
+                      <%= f.submit "Create Option" %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      </body>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,79 @@
+<body class="bg-gradient-primary">
+<div class="containter justify-content-center">
+  <div class="card o-hidden border-0 shadow-lg my-5">
+    <div class="card-body p-8">
+      <%= form_for @school, method: :post, local: true do |f| %>
+        <div class="row justify-content-center">
+
+        <div class="col-lg-7">
+          <div class="p-5">
+            <div class="text-center">
+              <h1 class="h4 text-gray-900 mb-4">Create a new School!</h1>
+            </div>
+
+              <div class="form-group row">
+
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                  <%= f.label :name %><br />
+                  <%= f.text_field :name, autofocus: true, class:"form-control", autocomplete: "name", placeholder:"School name" %>
+                </div>
+
+                <div class="col-sm-6">
+                  <%= f.label :domain %><br />
+                  <%= f.text_field :domain, autofocus: true,  class:"form-control", autocomplete: "domain", placeholder:"Domain" %>
+                </div>
+
+              </div>
+              <%= form_for @user, url: users_admin_index_path(@user, page: 1), method: :post, local: true do |f| %>
+
+              <div class="form-group">
+                <%= f.label :name %><br />
+                <%= f.text_field :name, autofocus: true, class:"form-control", autocomplete: "name", placeholder:"Name" %>
+                </div>
+                <div class="form-group">
+                  <%= f.label :email %><br />
+                  <%= f.email_field :email, autofocus: true,  class:"form-control", autocomplete: "name",  placeholder:"Email" %>
+                </div>
+                <div style="display: none;">
+                  <%= f.text_field :role, value: "admin" %>
+                </div>
+
+                <div class="form-group row">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+                    <%= f.label :password %>
+                    <% if @minimum_password_length %>
+                      <em>(<%= @minimum_password_length %> characters minimum)</em>
+                    <% end %><br />
+                    <%= f.password_field :password,  class:"form-control", autocomplete: "new-password" , placeholder:"Password" %>
+                  </div>
+                  <div class="col-sm-6">
+                    <%= f.label :password_confirmation %><br />
+                    <%= f.password_field :password_confirmation, class:"form-control", autocomplete: "new-password",  placeholder:"Password confirmation" %>
+                  </div>
+                </div>
+
+              <div class="actions">
+                <%= f.submit 'Save', class:'btn btn-secondary', data: {turbo: false} %>
+              </div>
+                <hr>
+              <%end %>
+            <%end %>
+
+
+
+           <%= link_to "Back", :back, class: "btn btn-secondary" %>
+
+          </div>
+        </div>
+      </div>
+
+
+
+
+    </div>
+  </div>
+</div>
+</body>
+
+
+

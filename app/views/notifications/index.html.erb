@@ -1,0 +1,44 @@
+ <div id="wrapper">
+    <% if current_user.role == "admin" or current_user.role== "teacher" %>
+      <%= render 'layouts/leftBar' %>
+    <%else %>
+      <%= render 'layouts/leftBarStud' %>
+    <%end %>
+
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+
+        <%= render 'layouts/topBar' %>
+        <h1 class="h3 mb-0 text-gray-800 text-center">Notifications </h1>
+
+        <p></p>
+        <div class="row ">
+          <div class="col-md-6 offset-md-3">
+            <div>
+                <% @notification.each do |notification| %>
+
+                  <!-- Collapsable Card Example -->
+                  <div class="card shadow mb-4">
+                    <!-- Card Header - Accordion -->
+                    <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse"
+                       role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                      <h6 class="m-0 font-weight-bold text-primary"><td><%= notification.title %></td></h6>
+                    </a>
+                    <!-- Card Content - Collapse -->
+                    <div class="collapse show" id="collapseCardExample">
+                      <div class="card-body">
+                        <td><%= notification.content %></td><br>
+                        <td><strong><%= link_to "View", notification.on_click_url %></strong></td>
+                      </div>
+                    </div>
+                  </div>
+                  </tr>
+                <% end  %>
+              <%= will_paginate @notification, class: "container text-center", renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,45 @@
+<div id="wrapper">
+  <%= render 'layouts/leftBar' %>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+
+      <%= render 'layouts/topBar' %>
+      <div class="container-fluid" style="padding-bottom: 20px">
+
+      <div>
+        <table class="table table-striped table-bordered table-hover">
+          <thead class="thead-dark">
+          <tr>
+            <th>#</th>
+            <th>Name of the student</th>
+            <th>course_id</th>
+            <th></th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <% @group_enrollment.each do |group_enrollment| %>
+            <tr>
+              <th><%= group_enrollment.id %></th>
+              <td><%= group_enrollment.user_name %></td>
+              <td><%= group_enrollment.group_id %></td>
+              <td><a class="btn btn-primary"<%=link_to 'Unenroll', remove_group_enrollment_path(id: group_enrollment.id), method: :delete %></a></td>
+              <td><%= link_to "User Profile", user_profile_users_admin_index_path(user_id: group_enrollment.user_id), class: "btn btn-primary btn_rounded-3" %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+      <a class="btn btn-primary" <%= link_to 'Enroll users', "/group/"+@group.id.to_s+"/users" %></a>
+      <a class="btn btn-primary" <%= link_to "Back", "/groups/"+@group.id.to_s%></a>
+        <div class="text my-4">
+          <%= will_paginate @group_enrollment, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

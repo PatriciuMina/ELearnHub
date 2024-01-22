@@ -1,0 +1,53 @@
+<div id="wrapper">
+  <% if current_user.role == "admin" or current_user.role == "teacher" %>
+    <%= render 'layouts/leftBar' %>
+  <% else %>
+    <%= render 'layouts/leftBarStud' %>
+  <% end %>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+
+      <%= render 'layouts/topBar' %>
+      <div class="container-fluid" style="padding-bottom: 20px">
+
+        <a class="btn btn-primary" <%= link_to "Back", "/course/" + @course.id.to_s + "/assignments/" + @assignment.id.to_s %></a>
+        <a class="btn btn-primary" <%= link_to "Edit", '/course/' + @course.id.to_s + '/assignments/' + @assignment.id.to_s + '/questions/' + @question.id.to_s + '/edit' %>
+
+        <div class="card">
+          <div class="card-header">
+            <h1><%= @question.text %></h1>
+          </div>
+
+        </div>
+        <% if @question.question_type == "single_choice" %>
+          <% @question.options.each do |option| %>
+            <p>
+              <%= radio_button_tag @question.id, option.id %>
+              <%= option.text %>
+            </p>
+          <% end %>
+        <% end %>
+
+        <% if @question.question_type == "multiple_choice" %>
+          <% @question.options.each do |option| %>
+            <p>
+              <%= check_box_tag @question.id, option.id %>
+              <%= option.text %>
+            </p>
+          <% end %>
+        <% end %>
+
+        <% if @question.question_type == "free_answear" %>
+          <p>
+            <%= text_area_tag @question.id %>
+          </p>
+
+        <% end %>
+
+
+        <a class="btn btn-primary" <%= link_to 'Add option', "/course/" + @course.id.to_s + "/assignments/" + @assignment.id.to_s + "/questions/" + @question.id.to_s + "/options/new" %>
+      </div>
+    </div>
+  </div>
+</div>

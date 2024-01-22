@@ -1,0 +1,54 @@
+<div id="wrapper">
+  <% if current_user.role == "admin" or current_user.role== "teacher" %>
+    <%= render 'layouts/leftBar' %>
+  <%else %>
+    <%= render 'layouts/leftBarStud' %>
+  <%end %>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+
+      <%= render 'layouts/topBar' %>
+
+      <%= form_for @resource, method: :post, local: true do |form| %>
+        <div class="row justify-content-center ">
+          <div class="col-lg-7 ">
+            <div class="p-5">
+              <div class="text-center ">
+                <h1 class="h4 text-gray-900 mb-4">Upload a file!</h1>
+              </div>
+              <div class="field form-group">
+                <%= form.file_field :file, autofocus: true, autocomplete: "file", class:"form-control", placeholder:"Chose a File"%>
+              </div><br/>
+
+
+              <div style="display: none;">
+                <%= form.text_field :user_id, value: current_user.id %>
+              </div>
+              <div style="display: none;">
+                <%= form.text_field :school_id, value: current_user.school_id %>
+              </div>
+              <% if current_user.role == 'parent' %>
+                <div style="display: none;">
+                  <%= form.text_field :resourceable_type, value: 'parent' %>
+                </div>
+              <%else %>
+                <div style="display: none;">
+                  <%= form.text_field :resourceable_type, value: 'school' %>
+                </div>
+              <%end %>
+
+
+
+              <div class="actions">
+                <%= form.submit 'Save', class:'btn btn-success', data: {turbo: false} %>
+
+              </div><br/>
+            </div>
+          </div>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>

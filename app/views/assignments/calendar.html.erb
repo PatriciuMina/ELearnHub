@@ -1,0 +1,74 @@
+<div id="wrapper">
+  <% if current_user.role == "admin" or current_user.role == "teacher" %>
+    <%= render 'layouts/leftBar' %>
+  <% else %>
+    <%= render 'layouts/leftBarStud' %>
+  <% end %>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+
+      <%= render 'layouts/topBar' %>
+      <div class="container-fluid" style="padding-bottom: 20px">
+        <a class="btn btn-primary" <%= link_to 'Course home', '/courses/' + @course.id.to_s %>
+        <a class="btn btn-primary" <%= link_to 'Assignments', "/course/" + @course.id.to_s + "/assignments?page=1" %>
+
+        <% if false %>
+          <a class="btn btn-primary" <%= link_to 'Enroll', "/courses/" + @course.id.to_s + "/new" %></a>
+        <% end %>
+        <% if current_user.role == "admin" or current_user.role == "teacher" %>
+          <a class="btn btn-primary" <%= link_to "Create lesson", new_course_lesson_path(@course.id) %>
+          <a class="btn btn-primary" <%= link_to 'See enrolled students', "/course/" + @course.id.to_s + "/enrolled?page=1" %>
+          <a class="btn btn-primary" <%= link_to 'Add Resource', "/course/" + @course.id.to_s + "/add_resource" %>
+        <% end %>
+
+        <a class="btn btn-primary" <%= link_to 'All Course Files', "/course/" + @course.id.to_s + "/resources?page=1" %>
+        <a class="btn btn-primary" <%= link_to 'Calendar', "/course/" + @course.id.to_s + "/calendar" %>
+
+
+      </div>
+
+
+      <!-- Calendar place -->
+
+      <div class="container-fluid mt-5 text-center">
+
+        <p></p>
+        <h1>Assignments Calendar</h1>
+        <%= month_calendar(events: @assignments) do |date, assignments| %>
+          <div class="day">
+            <%= date.to_formatted_s(:short) %>
+          </div>
+          <% assignments.each do |assignment| %>
+            <% if date.day == assignment.start_time.day || date.day == assignment.end_time.day %>
+              <div class="card-header">
+                <div class="card-title">
+                  <%= link_to assignment.title, '/course/' + @course.id.to_s + '/assignments/' + assignment.id.to_s %>
+                </div>
+              </div>
+
+              <div class="card-footer">
+                <p class="card-text">
+                  <% if assignment.start_time? %>
+                    From: <%= assignment.start_time.strftime('%A, %B %d, %Y at %I:%M %p') %>
+                  <% end %>
+
+                </p>
+
+                <p class="card=text">
+                  <% if assignment.end_time? %>
+                    To: <%= assignment.end_time.strftime('%A, %B %d, %Y at %I:%M %p') %>
+                  <% end %>
+                </p>
+            <% end %>
+            </div>
+
+          <% end %>
+        <% end %>
+
+      </div>
+
+
+    </div>
+  </div>
+</div>

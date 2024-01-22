@@ -1,0 +1,95 @@
+
+<div id="wrapper">
+  <%= render 'layouts/leftBar' %>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+
+      <%= render 'layouts/topBar' %>
+
+      <body class="bg-gradient-primary">
+      <div class="containter justify-content-center">
+        <div class="card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-8">
+            <% if @assignment.countdown %>
+              <%= render 'answears/countdown', counter:@assignment %>
+            <%end %>
+            <%= form_for @user_answear,  method: :post, local: true do |f| %>
+              <div class="row justify-content-center ">
+                <div class="col-lg-7 ">
+                  <div class="p-5">
+                    <div class="text-center ">
+                      <h1 class="h4 text-gray-900 mb-4">Good luck!</h1>
+                    </div>
+                    <div style="display: none;">
+                      <%= f.text_field :user_id, value: current_user.id %>
+                    </div>
+
+                    <div style="display: none;">
+                      <%= f.text_field :page, value: @index %>
+                    </div>
+
+                    <div style="display: none;">
+                      <%= f.text_field :answear_id, value: @answear.id %>
+                    </div>
+
+                    <% @question.each do |question| %>
+
+                      <div class="card-header">
+                        <h1><%= question.text %></h1>
+                      </div>
+                      <div style="display: none;">
+                        <%= f.text_field :question_id, value: question.id %>
+                      </div>
+                      <% case question.question_type %>
+                    <% when 'single_choice' %>
+
+                        <% question.options.each do |option| %>
+                          <p>
+                            <%= f.radio_button :option_id, option.id %>
+                            <%= option.text %>
+                          </p>
+                        <% end %>
+                      <% when 'multiple_choice' %>
+                        <% question.options.each do |option| %>
+                          <p>
+                            <input type="hidden" value="false" name="user_answears_array[]">
+                            <input type="checkbox" name="user_answears_array[]" value="true" onchange="if(this.checked) this.value='true'; else this.value='false';"/>
+                            <%= option.text %>
+
+                          </p>
+                        <% end %>
+                      <% when 'free_answear' %>
+                          <div class="field">
+                            <%= f.label :body %><br />
+                            <%= f.rich_text_area :body, autofocus: true, autocomplete: "Write the answear", as: :trix_editor %>
+                          </div>
+
+                      <% end %>
+                      <div class="actions">
+                        <%= f.submit "Submit Answear" %>
+                      </div>
+                    <% end %>
+
+                    <%= will_paginate @question, class: "container text-center", renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+                    <a class="btn btn-primary" <%= link_to 'Finish quizz', "/course/"+@course.id.to_s+"/assignments" %>
+
+                    <script type="text/javascript">
+                        window.addEventListener('beforeunload', function (e) {
+                            e.preventDefault();
+                            e.returnValue = '';
+                        });
+                    </script>
+
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      </body>
+    </div>
+  </div>
+</div>
+

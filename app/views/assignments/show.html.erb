@@ -1,0 +1,83 @@
+<div id="wrapper">
+  <% if current_user.role == "admin" or current_user.role == "teacher" %>
+    <%= render 'layouts/leftBar' %>
+  <% else %>
+    <%= render 'layouts/leftBarStud' %>
+  <% end %>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+
+      <%= render 'layouts/topBar' %>
+      <div class="container-fluid" style="padding-bottom: 20px">
+        <% if not (current_user.role == 'parent') %>
+          <% if not @answear %>
+            <a class="btn btn-primary" <%= link_to 'Submit Answear', "/course/" + @course.id.to_s + "/assignments/" + @assignment.id.to_s + "/answears/new" %>
+          <% end %>
+        <% end %>
+
+        <% if (current_user.role == "admin") or (current_user.role == "teacher") %>
+          <a class="btn btn-primary" <%= link_to 'See answears', "/course/" + @course.id.to_s + "/assignments/" + @assignment.id.to_s + "/answears" %>
+        <% end %>
+
+        <a class="btn btn-primary" <%= link_to "Back", "/course/" + @course.id.to_s + "/assignments?page=1" %></a>
+        <% if @assignment.category != "quiz" %>
+          <div class="card">
+            <div class="card-header">
+              <h1><%= @assignment.title %></h1>
+            </div>
+            <div class="card-body">
+              <p>
+                <%= @assignment.body %>
+              </p>
+            </div>
+          </div>
+        <% else %>
+          <div class="row justify-content-center ">
+            <div class="col-lg-7 ">
+              <div class="p-5">
+                <h1><%= @assignment.title %></h1>
+
+                <% @question.each do |question| %>
+                  <% if current_user.role == "admin" or current_user.role == "teacher" %>
+                    <h2><%= link_to question.text, '/course/' + @course.id.to_s + '/assignments/' + @assignment.id.to_s + '/questions/' + question.id.to_s %></h2>
+                    <%else %>
+                    <h2><%= question.text %></h2>
+                  <%end %>
+                  <% case question.question_type %>
+                <% when 'single_choice' %>
+                    <% question.options.each do |option| %>
+                      <p>
+                        <%= radio_button_tag question.id, option.id %>
+                        <%= option.text %>
+                      </p>
+                    <% end %>
+                  <% when 'multiple_choice' %>
+                    <% question.options.each do |option| %>
+                      <p>
+                        <%= check_box_tag question.id, option.id %>
+                        <%= option.text %>
+                      </p>
+                    <% end %>
+                  <% when 'long_answer' %>
+                    <%= text_area_tag question.id %>
+                  <% end %>
+
+                <% end %>
+
+                <%= will_paginate @question, class: "container text-center", renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+                <% if current_user.role == "admin" or current_user.role == "teacher" %>
+                  <a class="btn btn-primary" <%= link_to 'Add question', "/course/" + @course.id.to_s + "/assignments/" + @assignment.id.to_s + "/questions/new" %>
+                <% end %>
+
+
+              </div>
+            </div>
+          </div>
+
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

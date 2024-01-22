@@ -1,0 +1,37 @@
+<div id="wrapper">
+  <% if current_user.role == "admin" or current_user.role == "teacher" %>
+    <%= render 'layouts/leftBar' %>
+  <% else %>
+    <%= render 'layouts/leftBarStud' %>
+  <% end %>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+
+      <%= render 'layouts/topBar' %>
+      <div class="container-fluid" style="padding-bottom: 20px">
+        <div style="padding-bottom: 20px">
+          <% if current_user.role == "admin" or current_user.role == "teacher" %>
+            <a class="btn btn-primary" <%= link_to 'See enrolled users', "/group/" + @group.id.to_s + "/enrolled?page=1" %>
+          <% end %>
+
+          <%= link_to "Back", :groups, class: "btn btn-secondary" %>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h1><%= @group.name %></h1>
+          </div>
+          <div class="card-body">
+            <p>
+              <%= @group.description %>
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+

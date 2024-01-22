@@ -1,0 +1,79 @@
+<div id="wrapper">
+  <% if current_user.role == "admin" or current_user.role == "teacher" %>
+    <%= render 'layouts/leftBar' %>
+  <% else %>
+    <%= render 'layouts/leftBarStud' %>
+  <% end %>
+  <%= javascript_pack_tag 'paypal' %>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      <%= render 'layouts/topBar' %>
+      <div class="container-fluid">
+        <h1 class="h3 mb-0 text-gray-800">Your order</h1>
+        <p></p>
+
+        <div class="row">
+          <div class="col">
+            <div class="card" style="max-width: 448px; border-radius: 25px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+              <img class="card-img-top" src="/assets/course_card.jpg" alt="Card image cap">
+              <div class="card-body">
+                <% unless @course.nil? %>
+                  <h5 class="card-title">Name: <%= @course.name %></h5>
+                  <p class="card-text"><%= @course.description.truncate(100) %></p>
+                  <p class="card-text">
+                    Price: <%= number_to_currency(@total_price / 100) %> $
+                  </p>
+                <% end %>
+                <% unless @group.nil? %>
+                  <h5 class="card-title">Name: <%= @group.name %></h5>
+                  <p class="card-text"><%= @group.description.truncate(100) %></p>
+                  <p class="card-text">
+                    Price: <%= number_to_currency(@total_price / 100) %> $
+                  </p>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col">
+            <div class="card" style="max-width: 640px; border-radius: 25px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+              <div class="card-body">
+                <h5 class="card-title">
+                  Order Summary
+                </h5>
+                <h5 class="card-title">
+                  Products price:
+                  <%= number_to_currency(@total_price / 100) %> $
+                </h5>
+                <h5 class="card-title">
+                  Total
+                  <%= number_to_currency(@total_price / 100) %> $
+                </h5>
+                <h5 class="card-title">
+                  <input id="name" name="name" type="hidden" value="<%= current_user.name %>" >
+                  <input id="email" type="hidden" value="<%= current_user.email %>">
+                  <input id="stripe_id" type="hidden" value="<%= @product_id %>">
+                  <input id="total_price" type="hidden" value="<%= @total_price/100 %>">
+                </h5>
+                <p class="card-text">
+                  <!-- Replace "test" with your own sandbox Business account app client ID -->
+                  <script src="https://www.paypal.com/sdk/js?client-id=AbP-st4gy8fCDCK6R_DF6TSOe6p_kzxYaCIVn4rKSNqyfbQbs79JFP12Ltif1exooJa00ITY6GjVbHWY&currency=EUR&disable-funding=credit,card"></script>
+                  <!--  Set up a container element for the button -->
+                <div style="width: 120px">
+                  <div id="paypal-button-container"></div>
+                </div>
+                </p>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

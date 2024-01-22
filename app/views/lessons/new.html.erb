@@ -1,0 +1,75 @@
+<div id="wrapper">
+  <%= render 'layouts/leftBar' %>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+
+      <%= render 'layouts/topBar' %>
+      <div class="container-fluid" style="padding-bottom: 20px">
+        <a class="btn btn-primary" <%= link_to 'Course home', '/courses/'+@course.id.to_s %>
+        <a class="btn btn-primary" <%= link_to 'Assignments', "/course/"+@course.id.to_s+"/assignments?page=1" %>
+
+        <%if false %>
+          <a class="btn btn-primary" <%= link_to 'Enroll', "/courses/"+@course.id.to_s+"/new" %></a>
+        <%end %>
+        <% if current_user.role == "admin" or current_user.role== "teacher" %>
+          <a class="btn btn-primary" <%= link_to "Create lesson", new_course_lesson_path(@course.id) %>
+          <a class="btn btn-primary" <%= link_to 'See enrolled students', "/course/" + @course.id.to_s + "/enrolled?page=1" %>
+          <a class="btn btn-primary" <%= link_to 'Add Resource', "/course/"+@course.id.to_s+"/add_resource" %>
+        <%end %>
+
+        <a class="btn btn-primary" <%= link_to 'All Course Files', "/course/"+@course.id.to_s+"/resources?page=1" %>
+        <a class="btn btn-primary" <%= link_to 'Calendar', "/course/"+@course.id.to_s+"/calendar" %>
+
+
+
+      </div>
+
+      <%= form_with url:course_lessons_path(@course),  method: :post, local: true do |f| %>
+        <div class="row justify-content-center ">
+          <div class="col-lg-7 ">
+            <div class="p-5">
+              <div class="text-center ">
+                <h1 class="h4 text-gray-900 mb-4">Create a new Lesson!</h1>
+              </div>
+
+              <div class="form-group">
+                <%= f.label :name %><br />
+                <%= f.text_field :name, autofocus: true, class:"form-control", autocomplete: "name" %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label :text %><br />
+                <%= f.text_field :text, autofocus: true, class:"form-control", autocomplete: "text" %>
+              </div>
+
+              <div style="display: none;">
+                <%= f.label :course_id %><br />
+                <%= f.text_field :course_id, value:@course.id%>
+              </div>
+
+              <div style="display: none;">
+                <%= f.text_field :school_id, value: current_user.school_id %>
+              </div>
+
+              <div style="display: none;">
+                <%= f.text_field :teacher_id, value: current_user.id %>
+              </div>
+
+              <div style="display: none;">
+                <%= f.text_field :updated_by, value: current_user.id %>
+              </div>
+
+              <div class="actions">
+                <%= f.submit "Create Lesson" %>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,144 @@
+<div id="wrapper">
+  <% if current_user.role == "admin" or current_user.role== "teacher" %>
+    <%= render 'layouts/leftBar' %>
+  <%else %>
+    <%= render 'layouts/leftBarStud' %>
+  <%end %>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+
+      <%= render 'layouts/topBar' %>
+      <% if @assignment.countdown %>
+        <%= render 'answears/countdown', counter:@assignment %>
+      <%end %>
+      <% if @assignment.start_time.nil? %>
+        <%= form_for @answear,  method: :post, local: true do |f| %>
+          <div class="row justify-content-center ">
+            <div class="col-lg-7 ">
+              <div class="p-5">
+                <div class="text-center ">
+                  <h1 class="h4 text-gray-900 mb-4">Submit an Answear!</h1>
+                </div>
+
+
+                <% if @assignment.category== "upload" %>
+                  <div class="field form-group">
+                   <%= f.file_field :file, autofocus: true, autocomplete: "file", class:"form-control", placeholder:"Chose a File"%>
+                  </div><br/>
+                <%end %>
+
+                <% if @assignment.category== "essay" %>
+                  <div class="form-group">
+                    <%= f.label :content %><br />
+                    <%= f.rich_text_area :content, autofocus: true, class:"form-control", autocomplete: "body", as: :trix_editor %>
+                  </div>
+                <%end %>
+
+
+                <div style="display: none;">
+                  <%= f.text_field :assignment_id, value: @assignment.id %>
+                </div>
+
+                <div style="display: none;">
+                  <%= f.text_field :user_id, value: current_user.id %>
+                </div>
+
+
+                <div style="display: none;">
+                  <%= f.text_field :school_id, value: current_user.school_id %>
+                </div>
+
+                <div style="display: none;">
+                  <%= f.text_field :course_id, value: @assignment.course_id %>
+                </div>
+
+
+
+
+                <div class="actions">
+                  <%= f.submit "Create Answear" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <%else if @time.before?  @assignment.start_time or @time.after? @assignment.end_time %>
+            <div class="row justify-content-center ">
+              <div class="col-lg-7 ">
+                <div class="p-5">
+                  <div class="text-center ">
+                    <h1 class="h4 text-gray-900 mb-4">Sorry but you are too early or too late to submit a response.</h1>
+                  </div>
+
+                  <%= link_to "Back", :back, class: "btn btn-secondary" %>
+                </div>
+              </div>
+            </div>
+        <%else %>
+            <%= form_for @answear,  method: :post, local: true do |f| %>
+              <div class="row justify-content-center ">
+              <div class="col-lg-7 ">
+                <div class="p-5">
+                  <div class="text-center ">
+                    <h1 class="h4 text-gray-900 mb-4">Submit an Answear!</h1>
+                  </div>
+
+
+                  <% if @assignment.category== "upload" %>
+                    <div class="field form-group">
+                      <%= f.file_field :file, autofocus: true, autocomplete: "file", class:"form-control", placeholder:"Chose a File"%>
+                    </div><br/>
+                  <%end %>
+
+                  <% if @assignment.category== "essay" %>
+                    <div class="field">
+                      <%= f.label :content %><br />
+                      <%= f.rich_text_area :content, autofocus: true, autocomplete: "content", as: :trix_editor %>
+                    </div>
+                  <%end %>
+
+                  <% if @assignment.category== "code" %>
+                    <div class="field">
+                      <%= f.label :content %><br />
+                      <%= f.rich_text_area :content, autofocus: true, autocomplete: "content", as: :trix_editor %>
+                    </div>
+                  <%end %>
+
+
+                  <div style="display: none;">
+                    <%= f.text_field :assignment_id, value: @assignment.id %>
+                  </div>
+
+                  <div style="display: none;">
+                    <%= f.text_field :user_id, value: current_user.id %>
+                  </div>
+
+
+                  <div style="display: none;">
+                    <%= f.text_field :school_id, value: current_user.school_id %>
+                  </div>
+
+                  <div style="display: none;">
+                    <%= f.text_field :course_id, value: @assignment.course_id %>
+                  </div>
+
+
+
+
+                  <div class="actions">
+                    <%= f.submit "Create Answear" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <%end %>
+      <%end %>
+
+
+    </div>
+  </div>
+</div>
+
+

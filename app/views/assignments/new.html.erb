@@ -1,0 +1,92 @@
+<div id="wrapper">
+  <%= render 'layouts/leftBar' %>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+
+      <%= render 'layouts/topBar' %>
+      <div class="container-fluid" style="padding-bottom: 20px">
+        <a class="btn btn-primary" <%= link_to 'Course home', '/courses/'+@course.id.to_s %>
+      <a class="btn btn-primary" <%= link_to 'Assignments', "/course/"+@course.id.to_s+"/assignments" %>
+
+
+      <%if false %>
+        <a class="btn btn-primary" <%= link_to 'Enroll', "/courses/"+@course.id.to_s+"/new" %></a>
+      <%end %>
+      <% if current_user.role == "admin" or current_user.role== "teacher" %>
+        <a class="btn btn-primary" <%= link_to "Create lesson", new_course_lesson_path(@course.id) %>
+        <a class="btn btn-primary" <%= link_to 'See enrolled students', "/course/" + @course.id.to_s + "/enrolled" %>
+        <a class="btn btn-primary" <%= link_to 'Add Resource', "/course/"+@course.id.to_s+"/add_resource" %>
+      <%end %>
+
+      <a class="btn btn-primary" <%= link_to 'All Course Files', "/course/"+@course.id.to_s+"/resources" %>
+      <a class="btn btn-primary" <%= link_to 'Calendar', "/course/"+@course.id.to_s+"/calendar" %>
+
+
+
+
+      </div>
+
+      <%= form_for @assignment,  method: :post, local: true do |form| %>
+        <div class="row justify-content-center ">
+          <div class="col-lg-7 ">
+            <div class="p-5">
+              <div class="text-center ">
+                <h1 class="h4 text-gray-900 mb-4">Create a new Assignment!</h1>
+              </div>
+              <div class="form-group">
+                <%= form.label :title %><br />
+                <%= form.text_field :title, autofocus: true, class:"form-control", autocomplete: "title" %>
+              </div>
+
+              <div class="form-group">
+                <%= form.label :category %><br />
+                <%= form.select :category, options_for_select(["essay", "upload", "quiz","code"]), {}, {class:"form-control"}%>
+              </div>
+
+
+              <div style="display: none;">
+                <%= form.text_field :user_id, value: current_user.id %>
+              </div>
+
+
+              <div style="display: none;">
+                <%= form.text_field :school_id, value: current_user.school_id %>
+              </div>
+
+              <div style="display: none;">
+                <%= form.text_field :course_id, value: @course.id %>
+              </div>
+
+              <div class="field form-group">
+                <%= form.label :start_time %><br />
+                <%= form.datetime_local_field :start_time, autofocus: true, autocomplete: "Start time", class: "form-control", placeholder: "Choose Date" %>
+              </div>
+              <div class="field form-group">
+                <%= form.label :end_time %><br />
+                <%= form.datetime_local_field :end_time, autofocus: true, autocomplete: "End time", class: "form-control", placeholder: "Choose Date" %>
+              </div>
+              <div class="field form-group">
+                <%= form.label :countdown %><br />
+                <%= form.datetime_local_field :countdown, autofocus: true, autocomplete: "CountDOwn", class: "form-control", placeholder: "Choose Date" %>
+              </div>
+
+
+              <div class="form-group">
+                <%= form.label :body %><br />
+                <%= form.rich_text_area :body, autofocus: true, class:"form-control", autocomplete: "body", as: :trix_editor %>
+              </div>
+
+              <div class="actions">
+                <%= form.submit "Create Assignment", class:"btn btn-success btn-icon-split" %>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,97 @@
+<% if current_user %>
+
+
+  <%if current_user.role == "admin" or current_user.role== "teacher" %>
+
+    <div id="wrapper" >
+    <%= render 'layouts/leftBar' %>
+
+      <div id="content-wrapper" class="d-flex flex-column" >
+      <div id="content">
+
+      <%= render 'layouts/topBar' %>
+
+
+        <div class="row justify-content-center ">
+          <div class="col-lg-7 ">
+            <h1>Welcome to the main page of the <%=current_user.domain%> organization </h1>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="text-center">
+            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 80rem;"
+                 src="/startbootstrap-sb-admin-2-gh-pages/img/undraw_main.svg" alt="...">
+          </div>
+        </div>
+
+
+      </div>
+      </div>
+    </div>
+
+  <%elsif current_user.role =='student' or current_user.role == 'parent' %>
+    <div id="wrapper" >
+      <%= render 'layouts/leftBarStud' %>
+
+      <div id="content-wrapper" class="d-flex flex-column" >
+        <div id="content">
+
+          <%= render 'layouts/topBar' %>
+
+          <div class="row justify-content-center ">
+            <div class="col-lg-7 ">
+              <h1>Welcome to the main page of the <%=current_user.domain%> organization </h1>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="text-center">
+              <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 80rem;"
+                   src="/startbootstrap-sb-admin-2-gh-pages/img/undraw_main.svg" alt="...">
+            </div>
+          </div>
+          <%if false %>
+            <a class="btn btn-primary" <%= link_to "Sign out", destroy_user_session_path, method: :delete %></a>
+            <a class="btn btn-primary" <%= link_to "Users", users_admin_index_path(page: 1)%></a>
+            <a class="btn btn-primary" <%= link_to "Courses", courses_path%></a>
+            <a class="btn btn-primary" <%= link_to "Lessons", lessons_path%></a>
+            <a class="btn btn-primary" <%= link_to "Enrollments", enrollments_path%></a>
+            <a class="btn btn-primary" <%= link_to 'Add Files', new_resource_path %>
+            <a class="btn btn-primary" <%= link_to 'All Files', "/resources/show" %>
+          <%end %>
+          <%else %>
+
+          <h1>Welcome Student</h1>
+          <p>This is your home page</p>
+          <a class="btn btn-primary" <%= link_to "Courses", courses_path%></a>
+          <a class="btn btn-primary" <%= link_to "My courses", my_courses_path%></a>
+          <a class="btn btn-primary" <%= link_to "Sign out", destroy_user_session_path, method: :delete %></a>
+          <a class="btn btn-primary" <%= link_to 'All Files', "/resources/show" %>
+          </div>
+          </div>
+  <%end %>
+
+
+<% else %>
+  <br/>
+  <div>
+    <div id="wrapper" >
+      <%= render 'layouts/leftBar' %>
+
+      <div id="content-wrapper" class="d-flex flex-column" >
+        <div id="content">
+
+           <%= render 'layouts/topBar' %>
+           <h1>Welcome to the Main Page </h1>
+           <a class="btn btn-primary" <%= link_to "Login", new_user_session_path%></a>
+           <%if current_page?('http://www.lms.com:3000/') %>
+            <a class="btn btn-primary" <%= link_to "Register School", new_school_path %></a>
+           <%end %>
+        </div>
+      </div>
+
+  </div>
+  </div>
+  </div>
+
+<% end %>
+

@@ -1,0 +1,54 @@
+<div id="wrapper">
+  <%= render 'layouts/leftBar' %>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+
+      <%= render 'layouts/topBar' %>
+
+      <body class="bg-gradient-primary">
+      <div class="containter justify-content-center">
+        <div class="card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-8">
+            <%= form_for @meeting,  method: :post, local: true do |f| %>
+              <div class="row justify-content-center ">
+                <div class="col-lg-7 ">
+                  <div class="p-5">
+                    <div class="text-center ">
+                      <h1 class="h4 text-gray-900 mb-4">Create a new Meeting!</h1>
+                    </div>
+                    <div class="form-group">
+                      <%= f.label :topic %><br />
+                      <%= f.text_field :topic, autofocus: true, class:"form-control", autocomplete: "name" %>
+                    </div>
+
+                    <div class="field form-group">
+                      <%= f.label :start_time %><br />
+                      <%= f.datetime_local_field :start_time, autofocus: true, autocomplete: "Start Time", class: "form-control", placeholder: "Choose Date" %>
+                    </div>
+
+                    <div class="field form-group">
+                      <%= f.label :end_time %><br />
+                      <%= f.datetime_local_field :end_time, autofocus: true, autocomplete: "End Time", class: "form-control", placeholder: "Choose Date" %>
+                    </div>
+
+                    <div style="display: none;">
+                      <%= f.text_field :user_id, value: current_user.id %>
+                    </div>
+
+
+                    <div class="actions">
+                      <%= f.submit "Create Meeting" %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      </body>
+    </div>
+  </div>
+</div>
+

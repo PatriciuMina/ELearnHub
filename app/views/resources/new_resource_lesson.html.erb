@@ -1,0 +1,46 @@
+<div id="wrapper">
+  <%= render 'layouts/leftBar' %>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+
+      <%= render 'layouts/topBar' %>
+
+      <%= form_for @resource, method: :post, local: true do |form| %>
+        <div class="row justify-content-center ">
+          <div class="col-lg-7 ">
+            <div class="p-5">
+              <div class="text-center ">
+                <h1 class="h4 text-gray-900 mb-4">Add a lesson file!</h1>
+              </div>
+              <div class="field form-group">
+                <%= form.file_field :file, autofocus: true, autocomplete: "file", class:"form-control", placeholder:"Chose a File"%>
+              </div><br/>
+
+
+              <div style="display: none;">
+                <%= form.text_field :user_id, value: current_user.id %>
+              </div>
+              <div style="display: none;">
+                <%= form.text_field :school_id, value: @lesson.school_id %>
+              </div>
+
+              <div style="display: none;">
+                <%= form.text_field :resourceable_id, value: @lesson.id %>
+              </div>
+
+              <div style="display: none;">
+                <%= form.text_field :resourceable_type, value: 'lesson' %>
+              </div>
+
+              <div class="actions">
+                <%= form.submit 'Save lesson File', class:'btn btn-primary', data: {turbo: false} %>
+              </div><br/>
+              <%= link_to "Back", :back, class: "btn btn-secondary" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

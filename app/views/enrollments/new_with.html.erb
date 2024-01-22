@@ -1,0 +1,25 @@
+<div id="wrapper">
+  <%= render 'layouts/leftBar' %>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+
+      <%= render 'layouts/topBar' %>
+      <%= form_for @enrollment do |f|%>
+        <div class="field">
+          <%= f.label :user_id %><br />
+          <%= f.text_field :user_id, autofocus: true, autocomplete: "user_id", value: current_user.id %>
+        </div>
+
+        <div class="field">
+          <%= f.label :course_id %><br />
+          <%= f.collection_select :course_id, Course.all, :id, :name %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "Enroll" %>
+        </div>
+      <%end %>
+    </div>
+  </div>
+</div>

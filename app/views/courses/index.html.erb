@@ -1,0 +1,98 @@
+<div id="wrapper">
+  <% if current_user.role == "admin" or current_user.role == "teacher" %>
+    <%= render 'layouts/leftBar' %>
+  <% else %>
+    <%= render 'layouts/leftBarStud' %>
+  <% end %>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+
+      <%= render 'layouts/topBar' %>
+      <h1 class="h3 mb-0 text-gray-800 text-center">Courses</h1>
+      <% if false %>
+        <% if current_user.role == "admin" or current_user.role == "teacher" %>
+          <a class="btn btn-primary btn-lg" <%= link_to 'Create course', new_course_path %></a>
+        <% end %>
+      <% end %>
+      <p></p>
+
+
+      <% @courses.each_slice(3) do |index| %>
+        <div class="container" style="max-width: 1440px">
+          <div class="card-deck">
+
+            <% unless index[0].nil? %>
+              <div class="card" style="max-width: 448px; border-radius: 25px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                <img class="card-img-top" src="/assets/course_card.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <% if current_user.role == "admin" or current_user.role == "teacher" %>
+                    <h5 class="card-title"><%= link_to index[0].name, index[0] %></h5>
+                  <% else %>
+                    <h5 class="card-title"><%= index[0].name %></h5>
+                  <% end %>
+                  <p class="card-text"><%= index[0].description.truncate(100) %></p>
+                  <p class="card-text">
+                    <% if current_user.role == "admin" or current_user.role == "teacher" %>
+                      <%= link_to 'Edit', edit_course_path(index[0]) %>
+                    <% end %>
+                    <%= link_to 'Enroll', "/courses/" + index[0].id.to_s + "/new" %>
+                  </p>
+                </div>
+              </div>
+            <% end %>
+
+            <% unless index[1].nil? %>
+              <div class="card" style="max-width: 448px; border-radius: 25px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                <img class="card-img-top" src="/assets/course_card.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <% if current_user.role == "admin" or current_user.role == "teacher" %>
+                    <h5 class="card-title"><%= link_to index[1].name, index[1] %></h5>
+                  <% else %>
+                    <h5 class="card-title"><%= index[1].name %></h5>
+                  <% end %>
+                  <p class="card-text"><%= index[1].description.truncate(100) %>.</p>
+                  <p class="card-text">
+                    <% if current_user.role == "admin" or current_user.role == "teacher" %>
+                      <%= link_to 'Edit', edit_course_path(index[1]) %>
+                    <% end %>
+                    <%= link_to 'Enroll', "/courses/" + index[1].id.to_s + "/new" %>
+                  </p>
+                </div>
+              </div>
+            <% end %>
+
+            <% unless index[2].nil? %>
+              <div class="card" style="max-width: 448px; border-radius: 25px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                <img class="card-img-top" src="/assets/course_card.jpg" alt="Card image cap">
+                <div class="card-body">
+                  <% if current_user.role == "admin" or current_user.role == "teacher" %>
+                    <h5 class="card-title"><%= link_to index[2].name, index[2] %></h5>
+                  <% else %>
+                    <h5 class="card-title"><%= index[2].name %></h5>
+                  <% end %>
+                  <p class="card-text"><%= index[2].description.truncate(100) %></p>
+                  <p class="card-text">
+                    <% if current_user.role == "admin" or current_user.role == "teacher" %>
+                      <%= link_to 'Edit', edit_course_path(index[2]) %>
+                    <% end %>
+                    <%= link_to 'Enroll', "/courses/" + index[2].id.to_s + "/new" %>
+                  </p>
+                </div>
+              </div>
+            <% end %>
+
+          </div>
+        </div>
+        <p></p>
+      <% end %>
+
+      <div class="container">
+        <div class="text-center my-4">
+          <%= will_paginate @courses, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+<div id="wrapper">
+  <% if current_user.role == "admin" or current_user.role == "teacher" %>
+    <%= render 'layouts/leftBar' %>
+  <% else %>
+    <%= render 'layouts/leftBarStud' %>
+  <% end %>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+
+      <%= render 'layouts/topBar' %>
+      <div class="container-fluid" style="padding-bottom: 20px">
+        <a class="btn btn-primary" <%= link_to 'Course home', '/courses/' + @course.id.to_s %>
+        <a class="btn btn-primary" <%= link_to 'Assignments', "/course/" + @course.id.to_s + "/assignments?page=1" %>
+
+        <% if false %>
+          <a class="btn btn-primary" <%= link_to 'Enroll', "/courses/" + @course.id.to_s + "/new" %></a>
+        <% end %>
+        <% if current_user.role == "admin" or current_user.role == "teacher" %>
+          <a class="btn btn-primary" <%= link_to "Create lesson", new_course_lesson_path(@course.id) %>
+          <a class="btn btn-primary" <%= link_to 'See enrolled students', "/course/" + @course.id.to_s + "/enrolled?page=1" %>
+          <a class="btn btn-primary" <%= link_to 'Add Resource', "/course/" + @course.id.to_s + "/add_resource" %>
+        <% end %>
+
+        <a class="btn btn-primary" <%= link_to 'All Course Files', "/course/" + @course.id.to_s + "/resources?page=1" %>
+        <a class="btn btn-primary" <%= link_to 'Calendar', "/course/" + @course.id.to_s + "/calendar" %>
+
+      </div>
+      <div class="container-fluid">
+        <div class="card">
+          <div class="text-center">
+            <div id="image_transition" class="container-fluid position-relative px-4 px-lg-5" style="background-image: url('../../assets/home-bg.jpg'); height: 360px">
+              <div class="site-heading">
+                <h1 class="text-xl-center text-white " style="padding-top: 160px">Welcome to <%= @course.name %>!</h1>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p>
+              <%= @course.description %>
+            </p>
+          </div>
+
+
+          <% @course.lessons.each do |lesson| %>
+            <div class="card">
+              <div class="card-header"><h3 class="card-title bold"><%= lesson.name %></h3></div>
+
+              <div class="card-body">
+                <!--<h3 class="card-title bold"><%= lesson.name %></h3> -->
+                <p class="card-text"><%= truncate(lesson.text, length: 50, omission: "...") { link_to "read more", lesson_url(lesson) } %></p>
+                <hr class="sidebar-divider d-none d-md-block">
+              </div>
+            </div>
+
+          <% end %>
+
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
+

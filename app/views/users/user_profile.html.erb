@@ -1,0 +1,139 @@
+<div id="wrapper">
+  <% if current_user.role == "admin" or current_user.role == "teacher" %>
+    <%= render "layouts/leftBar" %>
+  <% else %>
+    <%= render "layouts/leftBarStud" %>
+  <% end %>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      <%= render "layouts/topBar" %>
+      <div class="container-fluid">
+        <h2><%= @user.name %> Profile</h2>
+        <div class="row">
+
+          <div class="col">
+            <div class="card border-dark" style="border-radius: 30px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+              <div class="card-header border-dark" style="border-radius: 30px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                <h5 class="card-title">User details</h5>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <img class="card-img-top" src="../startbootstrap-sb-admin-2-gh-pages/img/undraw_profile.svg" width="250" height="250">
+                  </div>
+                  <div class="col">
+                    </br>
+                    <h5 class="text-black-50">
+                      Name: <%= @user.name %>
+                      </br>
+                      Email: <%= @user.email %>
+                      </br>
+                    </h5>
+                    </br>
+                    <h5 class="text-black-50">
+                      Domain: <%= @user.domain %>
+                      </br>
+                      Role: <%= @user.role %>
+                      </br>
+                    </h5>
+                    </br>
+                    <h5 class="text-black-50">
+                      School: <%= School.where(id: @user.school_id).first.name %>
+                    </h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p></p>
+            <p></p>
+            <p></p>
+
+            <div class="card border-dark" style="border-radius: 30px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+              <div class="card-header border-dark" style="border-radius: 30px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                <h5 class="card-title">Courses and Groups</h5>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <img class="card-img-top" src="../../assets/boy-studying-with-book_113065-238.jpg" width="280" height="250">
+                  </div>
+                  <div class="col">
+                    <% @my_courses.each do |course| %>
+                      <h5 class="text-black-50">
+                        <%= link_to course.name, course %>
+                      </h5>
+                    <% end %>
+                    <% @my_groups.each do |group| %>
+                      <h5 class="text-black-50">
+                        <%= link_to group.name, group %>
+                      </h5>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p></p>
+          </div>
+
+          <div class="col">
+            <div class="card border-dark" style="border-radius: 30px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+              <div class="card-header border-dark" style="border-radius: 30px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                <h5 class="card-title">Recent Notifications</h5>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <img class="card-img-top" src="../../assets/note-list-e02.jpg" width="400" height="300">
+                  </div>
+                  <div class="col">
+                    <% @my_notifications.each do |notification| %>
+                      <h5 class="text-black-50">
+                        <%= link_to notification.title, notification.on_click_url %>
+                        <%= notification.content.truncate(48) %>
+                        </br>
+                      </h5>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p></p>
+            <p></p>
+            <p></p>
+
+            <div class="card border-dark" style="border-radius: 30px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+              <div class="card-header border-dark" style="border-radius: 30px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                <h5 class="card-title">Recent Messages</h5>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <img class="card-img-top" src="../../assets/message_card.png" width="400" height="300">
+                  </div>
+                  <div class="col">
+                    <% @my_messages.each do |message| %>
+                      <h5 class="text-black-50">
+                        <%= message.content.truncate(32) %>
+                        <br>
+                      </h5>
+                    <% end %>
+                    <br>
+                    <h5 class="text-black-50">
+                      <%= link_to "See More", room_path(1) %>
+                    </h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p></p>
+          <p></p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>

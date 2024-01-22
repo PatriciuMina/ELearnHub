@@ -1,0 +1,24 @@
+<div class="container-fluid">
+  <div class="container">
+    <div class="card-body">
+      <div class="text-center">
+        <div class="btn-group">
+          <%= link_to "Back", :back, class: "btn btn-secondary rounded-3" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" style="height: 1300px;">
+    <embed id="pdfViewer" src="<%= @file %>" type="application/pdf" style="height: 1200px; width: 1520px;
+      display: flex;
+      flex-direction: column;
+      background-color: #fff;
+      background-clip: padding-box;
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%);
+      border: 1px solid rgba(0, 0, 0, 0.2);"/>
+  </div>
+
+</div>

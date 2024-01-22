@@ -1,0 +1,26 @@
+<h1>Edit Lesson</h1>
+
+<%= form_for @lesson,  method: :patch, local: true do |f| %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :text %><br />
+    <%= f.text_field :text, autofocus: true, autocomplete: "text" %>
+  </div>
+
+  <div style="display: none;">
+    <%= f.text_field :updated_by, value: current_user.id %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Update Lesson", class:'btn btn-secondary' %>
+  </div>
+<% end %>
+
+<a class="btn btn-primary" <%= link_to "Back", lessons_path%></a>
+
+

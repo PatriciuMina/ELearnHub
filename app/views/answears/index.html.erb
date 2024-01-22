@@ -1,0 +1,46 @@
+<div id="wrapper">
+  <%= render 'layouts/leftBar' %>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+
+      <%= render 'layouts/topBar' %>
+      <div class="container-fluid" style="padding-bottom: 20px">
+        <div>
+          <table class="table table-striped table-bordered table-hover">
+            <thead class="thead-dark">
+            <tr>
+              <th>#</th>
+              <th>Student</th>
+              <th>#</th>
+              <th>Grade</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <% @answears = Answear.all %>
+            <% @answears.each do |answear| %>
+              <% if @assignment.id == answear.assignment_id %>
+                <tr>
+                  <td><%= answear.id %></td>
+                  <td><%= answear.user_name %></td>
+                  <td><%= link_to "See answear", "/course/" + @course.id.to_s + "/assignments/" + @assignment.id.to_s + "/answears/" + answear.id.to_s %></td>
+                  <% if answear.grade.nil? %>
+                    <td>Not Graded</td>
+                  <% elsif answear.scaled_grade.nil? %>
+                    <td> answear.grade</td>
+                  <% else %>
+                    <td><%= answear.scaled_grade %></td>
+                  <% end %>
+                </tr>
+              <% end %>
+            <% end %>
+
+            </tbody>
+          </table>
+        </div>
+        <a class="btn btn-primary" <%= link_to "Back", "/course/" + @course.id.to_s + "/assignments/" + @assignment.id.to_s %></a>
+      </div>
+    </div>
+  </div>
+</div>

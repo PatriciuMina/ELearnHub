@@ -1,0 +1,15 @@
+current directory: /home/patriciumina/RubymineProjects/lms-application/vendor/bundle/ruby/3.0.0/gems/bootsnap-1.12.0/ext/bootsnap
+/usr/bin/ruby3.0 -I /usr/lib/ruby/vendor_ruby -r ./siteconf20220712-3406-a9hlgk.rb extconf.rb
+creating Makefile
+
+current directory: /home/patriciumina/RubymineProjects/lms-application/vendor/bundle/ruby/3.0.0/gems/bootsnap-1.12.0/ext/bootsnap
+make DESTDIR\= clean
+
+current directory: /home/patriciumina/RubymineProjects/lms-application/vendor/bundle/ruby/3.0.0/gems/bootsnap-1.12.0/ext/bootsnap
+make DESTDIR\=
+compiling bootsnap.c
+linking shared-object bootsnap/bootsnap.so
+
+current directory: /home/patriciumina/RubymineProjects/lms-application/vendor/bundle/ruby/3.0.0/gems/bootsnap-1.12.0/ext/bootsnap
+make DESTDIR\= install
+/usr/bin/install -c -m 0755 bootsnap.so ./.gem.20220712-3406-xvi2sv/bootsnap

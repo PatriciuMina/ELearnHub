@@ -1,0 +1,24 @@
+
+    <div id="wrapper" >
+      <%if current_user.role!='student' %>
+        <%= render 'layouts/leftBar' %>
+      <%else %>
+        <%= render 'layouts/leftBarStud' %>
+      <%end %>
+      <div id="content-wrapper" class="d-flex flex-column" >
+        <div id="content">
+
+          <%= render 'layouts/topBar' %>
+
+
+          <div class="row justify-content-center ">
+            <div class="col-lg-7 ">
+              <h1>Payment success</h1>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+

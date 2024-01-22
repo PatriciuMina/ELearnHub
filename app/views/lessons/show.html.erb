@@ -1,0 +1,50 @@
+<div id="wrapper">
+  <% if current_user.role == "admin" or current_user.role== "teacher" %>
+    <%= render 'layouts/leftBar' %>
+  <%else %>
+    <%= render 'layouts/leftBarStud' %>
+  <%end %>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+      <%= render 'layouts/topBar' %>
+      <div class="container-fluid" style="padding-bottom: 20px">
+        <a class="btn btn-primary" <%= link_to 'Course home', '/courses/'+@course.id.to_s %>
+        <a class="btn btn-primary" <%= link_to 'Assignments', "/course/"+@course.id.to_s+"/assignments" %>
+
+        <%if false %>
+          <a class="btn btn-primary" <%= link_to 'Enroll', "/courses/"+@course.id.to_s+"/new" %></a>
+        <%end %>
+        <% if current_user.role == "admin" or current_user.role== "teacher" %>
+          <a class="btn btn-primary" <%= link_to "Create lesson", new_course_lesson_path(@course.id) %>
+          <a class="btn btn-primary" <%= link_to 'See enrolled students', "/course/" + @course.id.to_s + "/enrolled" %>
+          <a class="btn btn-primary" <%= link_to 'Add Resource', "/course/"+@course.id.to_s+"/add_resource" %>
+        <%end %>
+
+        <a class="btn btn-primary" <%= link_to 'All Course Files', "/course/"+@course.id.to_s+"/resources" %>
+        <a class="btn btn-primary" <%= link_to 'Calendar', "/course/"+@course.id.to_s+"/calendar" %>
+
+      </div>
+      <div class="container-fluid" style="padding-bottom: 20px">
+        <div class="card">
+          <div class="card-header">
+            <h1><%= @lesson.name %></h1>
+          </div>
+          <div class="card-body">
+            <p>
+              <%= @lesson.text %>
+            </p>
+          </div>
+        </div>
+        <br/>
+
+
+        <%= render "resources/show_lesson" %>
+        <% if current_user.role == "admin" or current_user.role== "teacher" %>
+          <a class="btn btn-primary" <%= link_to 'Add Resources', "/lessons/"+@lesson.id.to_s+"/add_resource" %>
+          <p></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

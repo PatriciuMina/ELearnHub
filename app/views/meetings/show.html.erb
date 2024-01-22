@@ -1,0 +1,35 @@
+<div id="wrapper">
+  <% if current_user.role == "admin" or current_user.role == "teacher" %>
+    <%= render 'layouts/leftBar' %>
+  <% else %>
+    <%= render 'layouts/leftBarStud' %>
+  <% end %>
+
+  <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+
+      <%= render 'layouts/topBar' %>
+
+
+      <p></p>
+      <div class="card text-center">
+        <div class="card-header">
+          Zoom Meeting
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"><%= @meeting.topic %></h5>
+          <p class="card-text">Start date: <%= @meeting.start_time %></p>
+          <p class="card-text">End date: <%= @meeting.end_time %></p>
+          <a href="<%= @meeting.zoom_link %>" class="btn btn-primary">Go to meeting</a><br>
+          <% if current_user.role != "student" %>
+            <a class="btn btn-light" <%= link_to 'Invite Users', "/meetings/" + @meeting.id.to_s + "/invite_users" %>
+          <% end %>
+        </div>
+
+      </div>
+
+
+      <a class="btn btn-primary" <%= link_to "Back", root_path %></a>
+    </div>
+  </div>
+</div>

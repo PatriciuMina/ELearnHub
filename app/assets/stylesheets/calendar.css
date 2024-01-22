@@ -1,0 +1,97 @@
+
+.simple-calendar {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid #ccc;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: #fff;
+}
+
+.calendar-title{
+    font-size:20px;
+}
+
+.day {
+    text-align: left;
+}
+
+.wday-0 {
+    width: 14.28571428571429%;
+    height: 90px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    color: #f00;
+}
+.wday-1 {
+    width: 14.28571428571429%;
+    height: 90px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    color: #000;
+}
+.wday-2 {
+    width: 14.28571428571429%;
+    height: 90px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    color: #000;
+}
+.wday-3 {
+    width: 14.28571428571429%;
+    height: 90px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    color: #000;
+}
+.wday-4 {
+    width: 14.28571428571429%;
+    height: 90px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    color: #000;
+}
+.wday-5 {
+    width: 14.28571428571429%;
+    height: 90px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    color: #000;
+}
+.wday-6 {
+    width: 14.28571428571429%;
+    height: 90px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    color: #f00;
+}
+
+.today {
+    background-color: #f0f0f0;
+}
+.past {
+    color: #ccc;
+}
+.future {
+    color: #000;
+}
+
+.start-date {
+    background-color: #f0f0f0;
+}
+
+.prev-month {
+    color: #ccc;
+}
+.next-month {
+    color: #ccc;
+}
+.current-month {
+    color: #000;
+}
+
+.has-events {
+    background-color: #f0f0f0;
+}
